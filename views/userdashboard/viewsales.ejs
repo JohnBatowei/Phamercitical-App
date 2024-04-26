@@ -1,0 +1,44 @@
+
+<section id="viewReceiptSection">
+    <div id="viewReceipt">
+        <h3>Benin Medical Center <h5>Pharmacy Receipt</h5></h3>
+        <table>
+            <tr>
+                <th>Product : </th>
+                <th><%= sales.productname %></th>
+            </tr>
+            <tr>
+                <th>Quantity : </th>
+                <th><%= sales.productquantity %> </th>
+            </tr>
+            <tr>
+                <th>Amount : </th>
+                <th id="naira"><img src="/assets/naira.svg" alt=""> <%= price %></th>
+            </tr>
+            <tr>
+                <th>Date : </th>
+                <th><%= sales.soldedate %></th>
+            </tr>
+
+        </table>
+              <div style="color: rgb(58, 56, 56);margin-top: 1em;font-weight: 600;">
+                issued by: <%= userids.userName %>
+              </div>
+
+        <p style="text-align: Center;margin-top: 1em;font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;letter-spacing: 2px;">Thanks for patronage</p>
+            </div>
+            <p style="text-align: Center;">Powered by GIVITEC.COM</p>
+        <div id="viewPrev">
+            <a href="/usercontrol/makesales/<%= userid %> ">Back</a>
+            <button>print</button>
+        </div>
+</section>
+
+<script>
+    let btn = document.querySelector('button')
+
+    
+    btn.onclick = function(e){
+        window.print()
+    }
+</script>

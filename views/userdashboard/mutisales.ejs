@@ -1,0 +1,485 @@
+<head>
+  <style>
+    .multisales{
+      background-color: rgb(9, 58, 83);
+    }
+  </style>
+</head>
+
+<div class="container">
+  <% if(errorMessage.length > 0){ %>
+  <div id="errorMessage"><%= errorMessage %></div>
+  <% } %> <% if(successMessage.length > 0){ %>
+  <div id="successMessage"><%= successMessage %></div>
+  <% } %>
+
+  <div class="container-fluid">
+    <h4 class="make-sales" id="retail">
+      <label >Retail price</label
+      ><img src="/assets/naira.svg" alt="naira" id="na" /><input
+        type="number"
+        name="test"
+        id="test"
+        disabled
+      />
+    </h4>
+  </div>
+
+
+
+  <section class="container-fluid">
+
+    <div class="genral-parent">
+      <form class="form-group addCartForm">
+        <div class="main-container">
+          <div class="addstock">
+            <div class="profit" id="form-boxs">
+              <label for="">Food id</label>
+              <input type="text" name="drugid" id="uniqueID" required />
+            </div>
+            <div class="productname" id="form-boxs">
+              <!-- <label for="">product name</label>
+          <input type="text" name="productname" id="productname" required /> -->
+              <select name="productname" id="productname">
+                <option value="pick product">Pick A Product</option>
+                <% if(newStock.length > 0){ %> <%
+                newStock.forEach((item,index)=>{ %>
+                <option
+                  value="<%= item.productname%>"
+                  data-id="<%= item.drugid%>"
+                  data-ids="<%= item._id%>"
+                >
+                  <%= item.productname%>
+                </option>
+                <% })%> <% }%>
+              </select>
+            </div>
+
+            <div class="productquantity" id="form-boxs">
+              <label for="">Food quantity</label>
+              <input
+                type="number"
+                name="productquantity"
+                id="productquantity"
+                required
+                oninput="myFunction()"
+              />
+            </div>
+            <div class="sellingprice" id="form-boxs">
+              <label for="">sales price</label>
+              <input
+                type="number"
+                name="sellingprice"
+                id="sellingprice"
+                required
+                oninput="myFunction()"
+              />
+            </div>
+            <!-- <div class="soldedate" id="form-boxs">
+          <label for="">date</label>
+          <input type="date" name="soldedate" id="soldedate" required />
+        </div> -->
+            <div class="cashiername" id="form-boxs">
+              <label for="">cashier's name</label>
+              <input
+                type="text"
+                name="cashiername"
+                id="cashiername"
+                value="<%= userids.userName %>"
+                required
+              />
+            </div>
+          </div>
+        </div>
+        <button class="btn-primary">Add to cart</button>
+      </form>
+
+
+      
+      <div class="receipt-container">
+        <div class="receipt-card">
+          <% if(saveCart){ %>
+          <h1 class="receipt-title">Receipt</h1>
+          <div class="receipt-content">
+            <div class="mb-3">
+              <strong>Receipt No : </strong>
+              <span><%= saveCart.cartName %></span>
+            </div>
+
+            <% let totalAmount = 0; %> <% saveCart.multiSales.forEach((sale,
+            index) => { %>
+            <div class="receipt-item">
+              <div class="receipt-item-details">
+                <span
+                  ><strong>Product Name :</strong> <%= sale.productname %></span
+                >
+                <span
+                  ><strong>Quantity :</strong> <%= sale.productquantity %></span
+                >
+                <span><strong>, Price :</strong> <%= sale.sellingprice %></span>
+              </div>
+              <div class="receipt-item-amount">
+                <button
+                  class="btn-remove"
+                  onclick="removeProduct(`<%= sale._id %>`,`<%= sale.drugid %>`,`<%= saveCart.cartName %>`)"
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+
+            <% totalAmount += sale.sellingprice %> <% }) %>
+
+            <div class="receipt-total">
+              <strong>Total Amount:</strong>
+              <span>NGN <%= totalAmount.toLocaleString() %></span>
+            </div>
+
+            <div class="receipt-actions">
+              <button
+                class="btn btn-danger"
+                onclick="deleteCart(`<%= saveCart.cartName %>`)"
+              >
+                Delete Cart
+              </button>
+              <button
+                class="btn-primary"
+                onclick="saveCart(`<%= saveCart._id %>`,`<%= saveCart.cartName %>`,`<%= totalAmount %>`)"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+          <% }else{ %>
+          <h3 id="no-cart">No Cart Yet</h3>
+          <% } %>
+        </div>
+      </div>
+
+      <script>
+        function removeProduct(productId, itemId, cartNum) {
+          // Implement the logic to remove the product at the given productId,itemId, cartNum from the cart
+          // console.log("Removing product at index", productId, itemId, cartNum);
+
+          try {
+            const state = confirm(
+              "Do you want to remove this product from cart ?"
+            );
+            if (state) {
+              const data = {
+                productId,
+                itemId,
+                cartNum
+              };
+              console.log(JSON.stringify(data));
+              fetch("/usercontrol/cart", {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+              })
+                .then((serverJson) => {
+                  if (serverJson.ok) {
+                    return serverJson.json();
+                  }
+                })
+                .then((data) => {
+                  // alert('removed')
+                  this.location.reload();
+                });
+            }
+          } catch (error) {
+            console.log("great");
+          }
+        }
+
+        function deleteCart(cartNum) {
+          // Implement the logic to delete the entire cart
+          console.log("Deleting cart");
+          try {
+            const state = confirm(
+              "Are you sure you want to delete this cart ?"
+            );
+            if (state) {
+              const data = {
+                cartNum
+              };
+              console.log(JSON.stringify(data));
+              fetch("/usercontrol/del-cart", {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+              })
+                .then((serverJson) => {
+                  if (serverJson.ok) {
+                    return serverJson.json();
+                  }
+                })
+                .then((data) => {
+                  // alert('removed')
+                  this.location.reload();
+                });
+            }
+          } catch (error) {
+            console.log("great");
+          }
+        }
+
+        function saveCart(productId, cartNum, total) {
+          // Implement the logic to save the cart
+          console.log("Saving cart");
+          try {
+            const state = confirm("press okay to save cart ");
+            if (state) {
+              const data = {
+                productId,
+                cartNum,
+                total
+              };
+              console.log(JSON.stringify(data));
+              fetch("/usercontrol/save-cart", {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+              })
+                .then((serverJson) => {
+                  if (serverJson.ok) {
+                    return serverJson.json();
+                  }
+                })
+                .then((data) => {
+                  alert(data.message);
+                  this.location.reload();
+                });
+            }
+          } catch (error) {
+            console.log("great");
+          }
+        }
+      </script>
+    </div>
+
+    <!-- DataTables Example -->
+    <div class="card mb-3" id="stock">
+      <div class="card-header" id="admin-table-head">
+        <i class="fas fa-table"></i>
+        Daily Sales
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table
+            class="table table-bordered"
+            id="dataTable"
+            width="100%"
+            cellspacing="0"
+          >
+            <thead>
+              <tr>
+                <th>S/N</th>
+                <th>RECEIPT NO</th>
+                <th>CASHIERS NAME</th>
+                <th>SOLD PRICE</th>
+                <th>DATE</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>S/N</th>
+                <th>RECEIPT NO</th>
+                <th>CASHIERS NAME</th>
+                <th>SOLD PRICE</th>
+                <th>DATE</th>
+                <th>Actions</th>
+              </tr>
+            </tfoot>
+            <tbody>
+              <% if(saveCartSaved.length > 0){ %> <%
+              saveCartSaved.forEach((item,index)=>{ %>
+              <tr>
+                <td><%= index+1 %></td>
+                <td><%= item.cartName %></td>
+                <td><%= item.cashiername %></td>
+                <td>
+                  <img src="/assets/naira.svg" alt="naira" id="naira" /> <%=
+                  item.total.toLocaleString()%>
+                </td>
+                <td><%= item.updatedAt.toLocaleDateString('en-NG', { day: '2-digit', month: '2-digit', year: 'numeric' }) %></td>
+              
+                <td><button class="printButton btn-primary" onclick="(printCart(`<%= item._id %>`,`<%= item.cartName %>`))">print receipt</button></td>
+              </tr>
+
+
+            
+              
+              <% }) %> 
+
+            <% }else{ %>
+              <p>No Sales Made</p>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div> -->
+    </div>
+
+    
+  </section>
+</div>
+<script>
+
+async function printCart(id,cartNum){
+  // console.log(id,cartNum)
+  const data = {
+    id,cartNum,user: `<%= userids._id %>`,
+  }
+  try {
+    const json = await fetch('/usercontrol/print',{
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(data)
+    })
+    const resolveJson = await json.json()
+
+    if(json.ok){
+      window.location.href = resolveJson.redirect
+    }else{
+      throw new Error(resolveJson)
+    }
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+ </script>
+<script>
+  let productname = document.getElementById("productname");
+  let productquantity = document.getElementById("productquantity");
+  let sellingprice = document.getElementById("sellingprice");
+
+  const transhcan = document.getElementById("uniqueID");
+
+  transhcan.addEventListener("input", async (e) => {
+    let makeit = transhcan.value;
+    const endpoint = `/usercontrol/drugid/${makeit}`;
+    console.log(makeit);
+
+    const res = await fetch(endpoint, {
+      method: "GET"
+    });
+    // receiving the server json inside res parameters
+    try {
+      const data = await res.json();
+
+      productname.value = data.name;
+      productquantity.value = data.left;
+      prodcutQty = data.left;
+      let price = data.left * data.price;
+      sellingprice.value = price;
+      document.getElementById("test").value = data.price;
+      // console.log(data.price);
+    } catch (error) {
+      console.log(error.message)
+      window.location.href = data.redirect;
+    }
+  });
+
+  
+  productname.addEventListener("input", async (e) => {
+
+    const selectedOption = productname.options[productname.selectedIndex];
+    const dataId = selectedOption.getAttribute("data-id");
+    const dataIds = selectedOption.getAttribute("data-ids");
+    console.log(productname.value, dataIds);
+
+        if(productname.value === 'pick product'){
+          return alert('Pick a product')
+        }
+     
+    const endpoint = `/usercontrol/drug-name/${dataIds}`;
+    // console.log(makeit);
+
+    const res = await fetch(endpoint, {
+      method: "GET"
+    });
+    // receiving the server json inside res parameters
+    try {
+      const data = await res.json();
+
+      productname.value = data.name;
+      transhcan.value = dataId;
+      productquantity.value = data.left;
+
+      let price = data.left * data.price;
+      sellingprice.value = price;
+      document.getElementById("test").value = data.price;
+      // console.log(data.price);
+    } catch (error) {
+      window.location.href = data.redirect;
+    }
+  });
+
+
+  let myFunction = function () {
+    let productquantity = document.getElementById("productquantity").value;
+    let sellingprice = document.getElementById("sellingprice").value;
+    let test = document.getElementById("test").value;
+    let productname = document.getElementById("productname").value;
+
+    if (productquantity > 0) {
+      const total = test * productquantity;
+      // console.log(total);
+      let balance = (document.getElementById("sellingprice").value = total);
+    }
+  };
+
+  
+  let addCartForm = document.querySelector(".addCartForm");
+
+  addCartForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    try {
+      let data = event.target;
+      const selectedOption = data[1].options[data[1].selectedIndex].value;
+      if(selectedOption === 'pick product'){
+        return alert('You havn\'t picked a product')
+      }
+      let formData = {
+        user: `<%= userids._id %>`,
+        drugid: data[0].value,
+        productname: selectedOption,
+        productquantity: data[2].value,
+        sellingprice: data[3].value,
+        cashiername: data[4].value
+      };
+      const endpoint = `/usercontrol/create-cart`;
+      const serverJson = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+      });
+      const jsonReceived = await serverJson.json();
+      if (serverJson.ok) {
+        alert("Product added to cart");
+        window.location.reload();
+      } else {
+        console.log(jsonReceived);  
+        if (jsonReceived.error) {     
+          alert("Error: " + jsonReceived.error);
+        } else {
+          alert("An error occurred. Please try again later.");
+        }
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  });
+
+  let cart = document.querySelector(".cart");
+  let cartSection = document.querySelector(".cart-section");
+  cart.addEventListener("click", (e) => {
+    // cartSection.classList.toggle('Toggle')
+    // cartSection.style.height = '100%'
+  });
+</script>

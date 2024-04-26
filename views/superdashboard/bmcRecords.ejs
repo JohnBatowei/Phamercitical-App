@@ -1,0 +1,103 @@
+<head>
+  <style>
+    .active{
+      background-color: rgb(9, 58, 83);
+    }
+  </style>
+</head>
+<div class="container">
+  <% if(errorMessage.length > 0){ %>
+      <div id="errorMessage"><%= errorMessage %></div>
+      <% } %> <% if(successMessage.length > 0){ %>
+      <div id="successMessage"><%= successMessage %></div>
+      <% } %>
+      
+  <section class="container-fluid">
+    <!-- <h1 class="prod-overview">Products overview</h1> -->
+   <div class="overview">
+    <div class="product over">
+      <h4>Total Food Per Unit</h4>
+      <h5> <img src="/assets/cartb.svg" alt="view" id=""></a> <%= totalProduct %></h5>
+    </div>
+    <div class="balance over">
+      <h4>Total Amount</h4>
+      <h5> <img src="/assets/naira.svg" alt="naira" id="" /> <%= totalbalance %></h5>
+    </div>
+    <div class="profit over">
+      <h4>Profits / Loss</h4>
+      <h5> <img src="/assets/naira.svg" alt="naira" id="" /> <%= totalprofit.toLocaleString("en-NG", { style: "currency", currency: "NGN" }) %></h5>
+    </div>
+    <div class="outstock over">
+      <h4>Categories left</h4>
+      <h5> <img src="/assets/outstock.svg" alt="view" id=""></a> <%= newCart %></h5>
+    </div>
+    <div class="categories over">
+      <h4>All categories</h4>
+      <h5> </a> <%= totalcategories %></h5>
+    </div>
+    <div class="salesbalance over">
+      <h4>Total Sales Amount</h4>
+      <h5> <img src="/assets/naira.svg" alt="view" id=""></a> <%= sale %></h5>
+    </div>
+   </div>
+
+           <!-- DataTables Example -->
+  <div class="card mb-3" id="stock">
+      <div class="card-header" id="admin-table-head">
+        <i class="fas fa-table"></i>
+       Products
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table
+            class="table table-bordered"
+            id="dataTable"
+            width="100%"
+            cellspacing="0"
+          >
+            <thead>
+              <tr>
+                <!-- <th>S/N</th> -->
+                <th>FOOD ID</th>
+                <th>FOOD NAME</th>
+                <th>FOOD QUANTITY</th>
+                <th>LEFT OVERS</th>
+                <!-- <th>SUPPLIER NAME</th> -->
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <!-- <th>S/N</th> -->
+                <th>FOOD ID</th>
+                  <th>FOOD NAME</th>
+                  <th>FOOD QUANTITY</th>
+                  <th>LEFT OVERS</th>
+                  <!-- <th>SUPPLIER NAME</th> -->
+              </tr>
+            </tfoot>
+            <tbody>
+              <% if(stock.length > 0){ %> <% stock.forEach((item,index)=>{ %>
+              <% if(item.quantityleft > 0){ %>
+
+              <tr>
+                <!-- <td><%= index %></td> -->
+                <td><%= item.drugid %></td>
+                <td><%= item.productname%></td>
+                <td> <%= item.productquantity%></td>
+                <td> <%= item.quantityleft %></td>
+              </tr>
+
+              <% } %>
+              <% }) %> <% }else{ %>
+              <p>NO stock</p>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div> -->
+    </div>
+    </div>
+
+  </section>
+</div>

@@ -1,0 +1,117 @@
+<!-- views/userdashboard/weekly-report.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekly Report</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    /* Main container styles */
+    .weekly-report-container {
+      margin: 2em auto;
+      max-width: 600px;
+      padding: 1.5em;
+      background-color: #f8f8f8;
+      border: 1px solid #ddd;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+
+    /* Heading styles */
+    .weekly-report-title {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 1em;
+    }
+
+    /* Week details styles */
+    .week-details {
+      font-size: 16px;
+      margin-bottom: 1.5em;
+    }
+
+    /* Sales info styles */
+    .sales-info {
+      font-size: 18px;
+    }
+
+    .sales-info p {
+      margin: 0;
+      margin-bottom: 1em;
+    }
+
+    /* Action links styles */
+    .action-links {
+      text-align: center;
+    }
+
+    .action-link {
+      display: inline-block;
+      padding: 0.8em 2em;
+      background-color: #007BFF;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      margin-right: 10px;
+      font-size: 16px;
+      transition: background-color 0.2s ease;
+    }
+
+    .action-link:hover {
+      background-color: #0056b3;
+    }
+
+
+
+    .make-sales{
+      background-color: rgb(9, 58, 83);
+    }
+
+  </style>
+</head>
+
+<body>
+    <% /* Function to get the suffix for the week number */ %>
+<% const getWeekSuffix = (weekNumber) => {
+  if (weekNumber >= 11 && weekNumber <= 13) {
+    return "th";
+  }
+
+  switch (weekNumber % 10) {
+    case 1:
+      return "st";
+    case 2:
+      return "nd";
+    case 3:
+      return "rd";
+    default:
+      return "th";
+  }
+}; %>
+    <div class="weekly-report-container">
+        <h1 class="weekly-report-title">Weekly Report</h1>
+        <div class="week-details">
+          <p><strong>Month : </strong> <%= startDate.toLocaleString('default', { month: 'long' }) %></p>
+          <!-- <p><strong>Week:</strong> </%= weekNumber.weekOfMonth %><span></%= getWeekSuffix(weekNumber.weekOfMonth) %></span> week</p> -->
+
+          <p><strong>Date Range : </strong> <%= startDate.toDateString() %> to <%= endDate.toDateString() %></p>
+        </div>
+        <div class="sales-info">
+          <p><strong>Total Sales : </strong> NGN <%= totalSales.toLocaleString() %></p>
+          <p><strong>Total Items Sold : </strong> <%= totalItemsSold %></p>
+        </div>
+        <div class="action-links">
+          <a class="action-link" href="#" onclick="window.print();">Print Report</a>
+          <a class="action-link">View Details</a>
+        </div>
+      </div>
+
+      
+</body>
+
+</html>

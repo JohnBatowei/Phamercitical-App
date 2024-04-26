@@ -1,0 +1,45 @@
+<% if(errorMessage.length > 0){ %>
+<div id="errorMessage"><%= errorMessage %></div>
+<% } %>
+
+<section class="form-container homeform">
+  <form
+    method="POST"
+    action="/api/users/register"
+    enctype="multipart/form-data"
+  >
+    <h3>create an account!</h3>
+    <input
+      type="tel"
+      name="userName"
+      maxlength="50"
+      placeholder="Enter your name"
+      class="box"
+      id="userName"
+    />
+    <input
+      type="email"
+      name="email"
+      required
+      maxlength="50"
+      placeholder="Enter your email"
+      class="box"
+      id="email"
+    />
+    <input
+      type="password"
+      name="password"
+      required
+      maxlength="20"
+      placeholder="Enter your password"
+      class="box"
+      id="pass"
+    />
+    <p>Enter profile picture</p>
+    <input type="file" name="file" class="box" required />
+    <p>already have an account? <a href="/login">click here</a></p>
+    <!-- <input type="submit" value="register now" name="submit" class="btn" /> -->
+    <button class="btn">register now</button>
+  </form>
+</section>
+<!-- <link rel="stylesheet" href="/javascripts/main.js" /> -->

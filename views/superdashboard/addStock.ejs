@@ -1,0 +1,231 @@
+<head>
+  <style>
+    .seestock{
+      background-color: rgb(9, 58, 83);
+    }
+  </style>
+</head>
+<div class="container">
+  <% if(errorMessage.length > 0){ %>
+  <div id="errorMessage"><%= errorMessage %></div>
+  <% } %> <% if(successMessage.length > 0){ %>
+  <div id="successMessage"><%= successMessage %></div>
+  <% } %>
+
+  <section class="container-fluid">
+    <form action="/db/api/sstock" method="POST" class="form-group">
+      <div class="main-container">
+        <div class="addstock">
+          <div class="invoice" id="form-box">
+            <label for="">invoice no</label>
+            <input
+              type="text"
+              name="invoice"
+              id="invoice"
+              required
+              oninput="myFunction()"
+            />
+          </div>
+          <div class="date" id="form-box">
+            <label>received date</label>
+            <input
+              type="date"
+              name="date"
+              id="date"
+              required
+              oninput="myFunction()"
+            />
+          </div>
+          <div class="suppliername" id="form-box">
+            <label for="">name of supplier</label>
+            <input
+              type="text"
+              name="suppliername"
+              id="suppliername"
+              required
+              oninput="myFunction()"
+            />
+          </div>
+          <div class="productname" id="form-box">
+            <label for="">product name</label>
+            <input
+              type="text"
+              name="productname"
+              id="productname"
+              required
+              oninput="myFunction()"
+            />
+          </div>
+          <div class="productquantity" id="form-box">
+            <label for="">product quantity</label>
+            <input
+              type="number"
+              name="productquantity"
+              id="productquantity"
+              required
+              oninput="myFunction()"
+            />
+          </div>
+          <div class="amountbought" id="form-box">
+            <label for="">amount bought</label>
+            <input
+              type="number"
+              name="amountbought"
+              id="amountbought"
+              required
+              oninput="myFunction()"
+            />
+          </div>
+        </div>
+
+        <div class="sellstock">
+          <div class="expiredate" id="form-box">
+            <label for="">expiring date</label>
+            <input type="date" name="expiredate" id="expiredate" required />
+          </div>
+          <div class="retailprice" id="form-box">
+            <label for="">retail price</label>
+            <input
+              type="number"
+              name="retailprice"
+              id="retailprice"
+              required
+              oninput="myFunction()"
+            />
+          </div>
+          <div class="balance" id="form-box">
+            <label for="">balance</label>
+            <input
+              type="number"
+              name="balance"
+              id="balance"
+              required
+              oninput="myFunction()"
+            />
+          </div>
+          <div class="profit" id="form-box">
+            <label for="">profit</label>
+            <input
+              type="number"
+              name="profit"
+              id="profit"
+              required
+              oninput="myFunction()"
+            />
+          </div>
+        </div>
+      </div>
+      <button>add to stock</button>
+    </form>
+
+    <!-- DataTables Example -->
+    <div class="card mb-3" id="stock">
+      <div class="card-header" id="admin-table-head">
+        <i class="fas fa-table"></i>
+        Stock Records
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table
+            class="table table-bordered"
+            id="dataTable"
+            width="100%"
+            cellspacing="0"
+          >
+            <thead>
+              <tr>
+                <th>S/N</th>
+                <th>INVOICE NO</th>
+                <th>RECEIVED DATE</th>
+                <th>SUPPLIER'S NAME</th>
+                <th>PRODUCT NAME</th>
+                <th>PRODUCT QUANTITY</th>
+                <th>AMOUNT BOUGHT</th>
+                <th>EXPIRING DATE</th>
+                <th>RETAIL PRICE</th>
+                <th>BALANCE</th>
+                <th>PROFIT</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>S/N</th>
+                <th>INVOICE NO</th>
+                <th>RECEIVED DATE</th>
+                <th>SUPPLIER'S NAME</th>
+                <th>PRODUCT NAME</th>
+                <th>PRODUCT QUANTITY</th>
+                <th>AMOUNT BOUGHT</th>
+                <th>EXPIRING DATE</th>
+                <th>RETAIL PRICE</th>
+                <th>BALANCE</th>
+                <th>PROFIT</th>
+              </tr>
+            </tfoot>
+            <tbody>
+              <% if(stock.length > 0){ %> <% stock.forEach((item,index)=>{ %>
+              <tr>
+                <td><%= index %></td>
+                <td><%= item.invoice%></td>
+                <td><%= item.date%></td>
+                <td><%= item.suppliername%></td>
+                <td><%= item.productname%></td>
+                <td>
+                  <img src="/assets/pill.svg" alt="naira" id="naira" /> <%=
+                  item.productquantity%>
+                </td>
+                <td>
+                  <img src="/assets/naira.svg" alt="naira" id="naira" /> <%=
+                  item.amountbought%>
+                </td>
+                <td><%= item.expiredate%></td>
+                <td>
+                  <img src="/assets/naira.svg" alt="naira" id="naira" /> <%=
+                  item.retailprice%>
+                </td>
+                <td>
+                  <img src="/assets/naira.svg" alt="naira" id="naira" /> <%=
+                  item.balance%>
+                </td>
+                <td>
+                  <img src="/assets/naira.svg" alt="naira" id="naira" /> <%=
+                  item.profit%>
+                </td>
+
+                <!-- <td><a href="/studentID/<%= item._id %> "> view</a></td>
+                <td><a href="/studentID/<%= item.id %>/edit ">edit</a></td> -->
+                <!-- <td> <a class="delete" data-doc="<%= item._id %>">delete</a></td> -->
+                <!-- <td>
+                  <form
+                    action="/studentID/<%= item.id %>?_method=DELETE"
+                    method="POST"
+                  >
+                    <button id="delete">delete</button>
+                  </form>
+                </td> -->
+              </tr>
+
+              <% }) %> <% }else{ %>
+              <p>No Stock Record Found</p>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div> -->
+    </div>
+  </section>
+</div>
+
+<script>
+  let myFunction = function () {
+    let retailprice = document.getElementById("retailprice").value;
+    let productquantity = document.getElementById("productquantity").value;
+    let amountbought = document.getElementById("amountbought").value;
+
+    //main calculation
+    let balanceAmt = retailprice * productquantity;
+    let balance = (document.getElementById("balance").value = balanceAmt);
+    document.getElementById("profit").value = balance - amountbought;
+  };
+</script>

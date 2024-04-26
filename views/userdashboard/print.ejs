@@ -1,0 +1,129 @@
+<style>
+    .receipt-container-table{
+        /* border: 1px solid red; */
+        display: flex;
+        place-content: center;
+     
+    }
+    .receipt-card{
+        /* border: 1px solid blue; */
+        /* width: 300px; */
+        display: flex;
+        flex-direction: column;
+        /* gap: 2px; */
+    }
+.receipt-total{
+    text-align: right;
+    margin: 6px 0;
+}
+.issue{
+    margin: 6px 0;
+    text-align: center;
+}
+.givitec{
+text-align: center;
+}
+.actions{
+    margin: 6px 0;
+    display: flex;
+    place-content: space-around;
+}
+.actions button{
+    border: none;
+    background-color: #ffffff;
+
+}
+.actions button:hover{
+  color: orangered;
+}
+.sales-receipt{
+    text-align: center;
+}
+@media print {
+  @page{
+    margin: 0;
+  }
+  .actions{
+  display: none;
+}
+}
+</style>
+
+
+<div class="receipt-container-table">
+  <div class="receipt-card">
+    <h3 class="receipt-title">CERHI CAFE</h3>
+    <p class="address"><strong>Address : UNIBEN </strong></p>
+    <div class="sales-receipt"><strong>SALES RECEIPT</strong></div>
+    <div class="receipt-content">
+      <div class="mb-3">
+        <div class="date">
+          <strong> Receipt No : </strong> <strong><%= printSales.cartName %> </strong>
+        </div>
+        <div class="date">
+          <strong> Date : </strong>
+          <strong>
+            <%= printSales.updatedAt.toLocaleDateString('en-NG', { day:
+            '2-digit', month: '2-digit', year: 'numeric' }) %></strong
+          >
+        </div>
+      </div>
+
+      <div class="receipt-item">
+        <div class="receipt-item-details">
+            <table>
+                <table
+            class="table table-bordered"
+            id="dataTable"
+            width="100%"
+            cellspacing="0"
+          >
+            <thead>
+              <tr>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>
+      <% printSales.multiSales.forEach((item,index) =>{ %>
+                <tr>
+                     <td> <strong> <%= item.productname %></strong></td>
+                     <td> <strong> <%= item.productquantity %> </strong></td>
+                     <td> <strong>NGN <%= item.sellingprice.toLocaleString()  %></strong></td>
+            </tr>
+            
+            <% }) %>
+        </tbody>
+        </table>
+            </div>
+          </div>
+
+      <div class="receipt-total">
+        <strong>Total Amount : NGN <%= printSales.total.toLocaleString() %></strong>
+      </div>
+
+      <div class="issue">
+        <span><strong>Issued by : <%= printSales.cashiername %></strong></span>
+      </div>
+    </div>
+
+    <div class="actions">  
+        <button onclick="(back())">back</button>
+        <button onclick="printS()">print</button>
+    </div>
+    <p class="givitec" style="font-size: 13px;margin-top: 10px;font-weight: 520;">Powered by GIVITEC LTD</span></p>
+   
+  </div>
+</div>
+
+<script>
+    function back(){
+     window.history.back()
+    }
+  
+
+    function printS(){
+        print()
+    }
+</script>

@@ -1,0 +1,159 @@
+<head>
+  <style>
+    .make-sales {
+      background-color: rgb(9, 58, 83);
+    }
+  </style>
+</head>
+<div class="container">
+  <% if(errorMessage.length > 0){ %>
+  <div id="errorMessage"><%= errorMessage %></div>
+  <% } %> <% if(successMessage.length > 0){ %>
+  <div id="successMessage"><%= successMessage %></div>
+  <% } %>
+
+  <div class="container-fluid">
+    <h4 class="make-sales" id="msls"><label>Retail price</label><img src="/assets/naira.svg" alt="naira" id="na" /><input type="number" name="test" id="test" disabled></h4>
+  </div>
+
+  <%- include('../partials/cart') %> 
+  <section class="container-fluid">
+   
+
+    <!-- DataTables Example -->
+    <div class="card mb-3" id="stock">
+      <div class="card-header" id="admin-table-head">
+        <i class="fas fa-table"></i>
+        Daily Sales
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table
+            class="table table-bordered"
+            id="dataTable"
+            width="100%"
+            cellspacing="0"
+          >
+            <thead>
+              <tr>
+                <th>S/N</th>
+                <th>DRUG ID</th>
+                <th>CASHIERS NAME</th>
+                <th>PRODUCT NAME</th>
+                <th>QUANTITY SOLD</th>
+                <th>SOLD PRICE</th>
+                <th>DATE</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>S/N</th>
+                <th>DRUG ID</th>
+                <th>CASHIERS NAME</th>
+                <th>PRODUCT NAME</th>
+                <th>QUANTITY SOLD</th>
+                <th>SOLD PRICE</th>
+                <th>DATE</th>
+                <th>Actions</th>
+              </tr>
+            </tfoot>
+            <tbody>
+              <% if(productDrugs.length > 0){ %> <%
+              productDrugs.forEach((item,index)=>{ %>
+              <tr>
+                <td><%= index+1 %></td>
+                <td><%= item.drugid %></td>
+                <td><%= item.cashiername %></td>
+                <td><%= item.productname %></td>
+                <td>
+                  <img src="/assets/pill.svg" alt="naira" id="naira" /> <%=
+                  item.productquantity%>
+                </td>
+                <td>
+                  <img src="/assets/naira.svg" alt="naira" id="naira" /><%=
+                  item.sellingprice%>
+                </td>
+                <td><%= item.soldedate%></td>
+                <td>
+                  <a href="/usercontrol/<%= userid %>/<%= item._id %> ">
+                    <img src="/assets/eye.svg" alt="view" id="svg"
+                  /></a>
+                </td>
+                <!-- <td><a href="/studentID/<%= item.id %>/edit ">edit</a></td> -->
+                <!-- <td> <a class="delete" data-doc="<%= item._id %>">delete</a></td> -->
+                <!-- <td>
+                    <form
+                      action="/studentID/<%= item.id %>?_method=DELETE"
+                      method="POST"
+                    >
+                      <button id="delete">delete</button>
+                    </form>
+                  </td> -->
+              </tr>
+
+              <% }) %> <% }else{ %>
+              <p>No Sales Made</p>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div> -->
+    </div>
+  </section>
+</div>
+<script src="/jquery.min.js"></script>
+<script>
+  let productname = document.getElementById("productname");
+  let productquantity = document.getElementById("productquantity");
+  let sellingprice = document.getElementById("sellingprice");
+
+  const transhcan = document.getElementById("uniqueID");
+
+  transhcan.addEventListener("input", async (e) => {
+    let makeit = transhcan.value;
+    const endpoint = `/usercontrol/drugid/${makeit}`;
+    console.log(makeit);
+
+    const res = await fetch(endpoint, {
+      method: "GET"
+    });
+    // receiving the server json inside res parameters
+   try {
+    const data = await res.json();
+    productname.value = data.name;
+    productquantity.value = data.left;
+    let price = data.left * data.price;
+    sellingprice.value = price;
+document.getElementById('test').value = data.price
+    console.log(data.price);
+
+
+   } catch (error) {
+    window.location.href = data.redirect
+   }
+
+  });
+
+  let myFunction = function () {
+    let productquantity = document.getElementById("productquantity").value;
+    let sellingprice = document.getElementById("sellingprice").value;
+    let test = document.getElementById('test').value 
+    let productname = document.getElementById('productname').value
+
+if(productquantity > 0){
+  const total = test * productquantity;
+  console.log(total);
+      let balance = (document.getElementById("sellingprice").value =
+        total);   
+}
+// else{
+//   alert(`${productname} is out of stock`)
+// }
+   
+  };
+
+  
+</script>
+<script src="/javascripts/cart.js"></script>

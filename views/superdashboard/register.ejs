@@ -1,0 +1,198 @@
+<head>
+  <style>
+    .user1{
+      background-color: rgb(9, 58, 83);
+    }
+  </style>
+</head>
+<div class="container">
+  <% if(errorMessage.length > 0){ %>
+  <div id="errorMessage"><%= errorMessage %></div>
+  <% } %> <% if(successMessage.length > 0){ %>
+  <div id="successMessage"><%= successMessage %></div>
+  <% } %>
+
+  <!-- <div class="container-fluid">
+    <h1 class="make-sales">create user account</h1>
+  </div> -->
+
+  <section class="container-fluid">
+   <section id="superform">
+    <form action="/api/users/registers" method="POST" class="form-group">
+      <h3>create cashier account</h3>
+      <div class="main-container">
+        <div class="addstock">
+          <div class="userName" id="form-box">
+            <label for="">full name</label>
+            <input type="text" name="userName" id="userName" required />
+          </div>
+          <div class="email" id="form-box">
+            <label for="">enter email</label>
+            <input type="email" name="email" id="email" required />
+          </div>
+          <div class="password" id="form-box">
+            <label for="">enter password</label>
+            <input type="password" name="password" id="password" required />
+          </div>
+          <!-- <div class="soldedate" id="form-box">
+            <label for="">date</label>
+            <input type="date" name="soldedate" id="soldedate" required />
+          </div> -->
+        </div>
+      </div>
+      <button>create account</button>
+    </form>
+
+    <form action="/users/mid" method="POST" class="form-group">
+      <h3>create manager account</h3>
+      <div class="main-container">
+        <div class="addstock">
+          <div class="userName" id="form-box">
+            <label for="">full name</label>
+            <input type="text" name="userName" id="userName" required />
+          </div>
+          <div class="email" id="form-box">
+            <label for="">enter email</label>
+            <input type="email" name="email" id="email" required />
+          </div>
+          <div class="password" id="form-box">
+            <label for="">enter password</label>
+            <input type="password" name="password" id="password" required />
+          </div>
+          <!-- <div class="soldedate" id="form-box">
+            <label for="">date</label>
+            <input type="date" name="soldedate" id="soldedate" required />
+          </div> -->
+        </div>
+      </div>
+      <button>create account</button>
+    </form>
+   </section>
+
+    <!-- DataTables Example -->
+    <div class="card mb-3" id="stock">
+      <div class="card-header" id="admin-table-head">
+        <i class="fas fa-table"></i>
+        Existing sales users
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table
+            class="table table-bordered"
+            id="dataTable"
+            width="100%"
+            cellspacing="0"
+          >
+            <thead>
+              <tr>
+                <th>S/N</th>
+                <th>FULL NAME</th>
+                <th>EMAIL</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>S/N</th>
+                <th>FULL NAME</th>
+                <th>EMAIL</th>
+                <th>Actions</th>
+              </tr>
+            </tfoot>
+            <tbody>
+              <% if(users.length > 0){ %> <% users.forEach((item,index)=>{ %>
+              <tr>
+                <td><%= index+1 %></td>
+                <td><%= item.userName%></td>
+                <td><%= item.email%></td>
+                <td class="action"><a href=""> <img src="/assets/edit.svg" alt="view" id="svg"></a>
+                  <form action="/supercontrol/<%= item._id %>/userdelete?_method=DELETE" method="POST" >
+                  <button id="delete"> <img src="/assets/delete.svg" alt="view" id="svg"></button>
+                </form></td>
+                <!-- <td><a href="/studentID/<%= item.id %>/edit ">edit</a></td> -->
+                <!-- <td> <a class="delete" data-doc="<%= item._id %>">delete</a></td> -->
+                <!-- <td>
+                    <form
+                      action="/studentID/<%= item.id %>?_method=DELETE"
+                      method="POST"
+                    >
+                      <button id="delete">delete</button>
+                    </form>
+                  </td> -->
+              </tr>
+
+              <% }) %> <% }else{ %>
+              <p>No user created</p>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div> -->
+    </div>
+
+    <!-- DataTables Example -->
+    <div class="card mb-3" id="stock" style="margin-top: 2em;">
+      <div class="card-header" id="admin-table-head">
+        <i class="fas fa-table"></i>
+        Existing middle level users
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table
+            class="table table-bordered"
+            id="dataTable"
+            width="100%"
+            cellspacing="0"
+          >
+            <thead>
+              <tr>
+                <th>S/N</th>
+                <th>FULL NAME</th>
+                <th>EMAIL</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>S/N</th>
+                <th>FULL NAME</th>
+                <th>EMAIL</th>
+                <th>Actions</th>
+              </tr>
+            </tfoot>
+            <tbody>
+              <% if(midusers.length > 0){ %> <% midusers.forEach((item,index)=>{ %>
+              <tr>
+                <td><%= index+1 %></td>
+                <td><%= item.userName%></td>
+                <td><%= item.email%></td>
+                <td class="action"><a href=""> <img src="/assets/edit.svg" alt="view" id="svg"></a>
+                  <!-- <a href="/supercontrol/<%= item._id %>/delete "> <img src="/assets/delete.svg" alt="view" id="svg"></a> -->
+                
+                  <form action="/supercontrol/<%= item._id %>/middelete?_method=DELETE" method="POST">
+                  <button id="delete"> <img src="/assets/delete.svg" alt="view" id="svg"></button>
+                </form></td>
+                <!-- <td><a href="/studentID/<%= item.id %>/edit ">edit</a></td> -->
+                <!-- <td> <a class="delete" data-doc="<%= item._id %>">delete</a></td> -->
+                <!-- <td>
+                    <form
+                      action="/studentID/<%= item.id %>?_method=DELETE"
+                      method="POST"
+                    >
+                      <button id="delete">delete</button>
+                    </form>
+                  </td> -->
+              </tr>
+
+              <% }) %> <% }else{ %>
+              <p>No mid user created</p>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div> -->
+    </div>
+  </section>
+</div>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>CERHI Admin</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="/this/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <!-- Page level plugin CSS-->
+  <link href="/this/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="/this/css/sb-admin.css" rel="stylesheet">
+
+  <!-- my own style -->
+   <link rel="stylesheet" href="/stylesheets/style.css">
+
+</head>
+
+<body id="page-top">
+
+  <nav class="navbar navbar-expand navbar-dark pt-0 pb-0 static-top" id="admin-navber">
+
+    <a class="navbar-brand mr-1" href="" id="img1"><img src="/images/pdf.png" alt="">CERHI CAFE</a>
+
+    <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+      <i class="fas fa-bars" style="color:white;width:100px;font-size:30px"></i>
+    </button>
+
+
+    <h4 style="color: white;margin:0 auto; text-transform: uppercase;">Director Dashboard</h4>
+    
+    <li class="nav-item">
+      <a class="nav-link" href="">
+        <form action="/logout" method="POST">
+              <button id="logout">logout</button>
+           </form></a>
+    </li>
+
+    <!-- Navbar Search -->
+    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="button">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+
+
+    
+    <!-- Navbar -->
+    <ul class="navbar-nav ml-auto ml-md-0">
+     
+
+      <li class="nav-item dropdown no-arrow">
+        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <img src="/assets/user.svg"class="avatar"/>
+        </a>
+        
+      </li>
+    </ul>
+
+  </nav>
+
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="sidebar navbar-nav" id="admin-aside">
+      <li class="nav-item nvitems active">
+        <a class="nav-link" href="/supercontrol">
+          <!-- <img src="/assets/pill.svg" alt="sale" id="svga"> -->
+          <span>PRODUCTS</span>
+        </a>
+      </li>
+     
+
+      
+      <li class="nav-item nvitems make-sales">
+        <a class="nav-link" href="/supercontrol/makesales">
+          <!-- <img src="/assets/drugs.svg" alt="sale" id="svga"> -->
+            <span id="regStd" class="regstd" style="color: white;">VIEW SALES</span>
+          </a>
+        </li>
+        
+
+
+      <!-- <li class="nav-item nvitems seestock"> -->
+        <!-- <a class="nav-link" href="/supercontrol/addstocks"> -->
+          <!-- <img src="/assets/cartc.svg" alt="sale" id="svga">      -->
+          <!-- <span id="regStd" class="rcpt" style="color: white;">ADD STOCK</span> -->
+        <!-- </a> -->
+      <!-- </li> -->
+
+      <li class="nav-item nvitems user1">
+        <a class="nav-link" href="/supercontrol/create">
+          <!-- <img src="/assets/user.svg" alt="sale" id="svga">        -->
+          <span id="regStd" class="rcpt" style="color: white;">CREATE USER</span>
+        </a>
+      </li>
+
+
+    </ul>
+
+    <div id="content-wrapper">
+
+      <div class="container-fluid">
+
+        <%- body %>
+
+      </div>
+      <!-- /.container-fluid -->
+
+      <!-- Sticky Footer -->
+      <footer class="sticky-footer" id="giviFoot">
+        <div class="container my-auto" id="st1">
+          <div class="copyright text-center my-auto" id="st2">
+            <h5>Powered by <span>GIVITEC LTD</span> | All Rights Reserved</h5>
+            <p>www.givitec.com</p>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+    <!-- /.content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="/this/vendor/jquery/jquery.min.js"></script>
+  <script src="/this/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="/this/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Page level plugin JavaScript-->
+  <script src="/this/vendor/chart.js/Chart.min.js"></script>
+  <script src="/this/vendor/datatables/jquery.dataTables.js"></script>
+  <script src="/this/vendor/datatables/dataTables.bootstrap4.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <!-- <script src="/this/js/sb-admin.min.js"></script> -->
+
+  <!-- Demo scripts for this page-->
+<script src="/this/js/demo/datatables-demo.js"></script>
+    <script src="/this/js/demo/chart-area-demo.js"></script>
+
+
+</body>
+
+</html>

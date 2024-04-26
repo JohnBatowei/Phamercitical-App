@@ -1,0 +1,97 @@
+<section class="container-fluid editstock">
+  <h2>Edit this product</h2>
+  <form method="POST" action="/midcontrol/<%= userid %>/<%= sales._id %>/update?_method=PUT">
+    <div class="main-container">
+      <div class="addstock">
+        
+       
+        <div class="productname" id="form-box">
+          <label for="">food name</label>
+          <input
+            type="text"
+            name="productname"
+            id="productname"
+            required
+            oninput="myFunction()"
+            value="<%= sales.productname %>"
+          />
+        </div>
+        <div class="productquantity" id="form-box">
+          <label for="">food quantity</label>
+          <input
+            type="number"
+            name="productquantity"
+            id="productquantity"
+            required
+            oninput="myFunction()"
+            value="<%= sales.productquantity %>"
+            
+          />
+        </div>
+      
+      </div>
+
+      <div class="sellstock">
+       
+        <div class="retailprice" id="form-box">
+          <label for="">retail price</label>
+          <input
+            type="number"
+            name="retailprice"
+            id="retailprice"
+            required
+            oninput="myFunction()"
+            value="<%= sales.retailprice %>"
+          />
+        </div>
+        <div class="balance" id="form-box">
+          <label for="">total amount</label>
+          <input
+            type="number"
+            name="balance"
+            id="balance"
+            required
+            oninput="myFunction()"
+            value="<%= sales.balance %>"
+          />
+        </div>
+        
+        <div class="profit" id="form-box">
+          <label for="">quantity left</label>
+          <input
+            type="number"
+            name="quantityleft"
+            id="quantityleft"
+            required
+            oninput="myFunction()"
+            value="<%= sales.quantityleft %>"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="submit">
+      <a href="/midcontrol/addstocks/<%= userid %>">cancel</a>
+      <button>update</button>
+    </div>
+  </form>
+</section>
+
+<script>
+ let myFunction = function () {
+    let retailprice = document.getElementById("retailprice").value;
+    let productquantity = document.getElementById("productquantity").value;
+  
+
+    //main calculation
+    let balanceAmt = retailprice * productquantity;
+      (document.getElementById("balance").value = balanceAmt);
+    
+
+    const uid = function(){
+  return Date.now().toString(36) + Math.random().toString(36).substr(2);
+}
+ document.getElementById('uniqueID').value = uid()
+console.log(uid());
+  };
+</script>

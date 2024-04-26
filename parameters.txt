@@ -1,0 +1,7 @@
+find either cartName | cartNum | Receipt No
+find either Amount bought | Total quantity price 
+find either MakeSales | REPORTS
+find either Balance - total
+find either drugid - food id
+find either productquantity- foodquantity
+find either productname- foodname

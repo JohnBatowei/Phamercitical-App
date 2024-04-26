@@ -1,0 +1,30 @@
+<!-- login section starts  -->
+<% if(errorMessage.length > 0){ %>
+<div id="errorMessage"><%= errorMessage %></div>
+<% } %> <% if(successMessage.length > 0){ %>
+<div id="successMessage"><%= successMessage %></div>
+<% } %>
+
+<section class="form-container homeform" id="home-login">
+  <form method="POST" action="/api/users">
+    <h3>welcome back!</h3>
+    <input
+      type="email"
+      name="email"
+      required
+      maxlength="50"
+      placeholder="enter your email"
+      class="box"
+    />
+    <input
+      type="password"
+      name="password"
+      required
+      maxlength="20"
+      placeholder="enter your password"
+      class="box"
+    />
+    <p>don't have an account? <a href="/register">click here</a></p>
+    <button class="btn">login</button>
+  </form>
+</section>

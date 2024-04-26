@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>CERHI Admin</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="/this/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <!-- Page level plugin CSS-->
+  <link href="/this/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="/this/css/sb-admin.css" rel="stylesheet">
+
+  <!-- my own style -->
+   <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body id="page-top">
+
+  <nav class="navbar navbar-expand navbar-dark pt-0 pb-0 static-top" id="admin-navber">
+
+    <a class="navbar-brand mr-1" href="" id="img1"><img src="/images/pdf.png" alt="">CERHI CAFE</a>
+
+    <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+      <i class="fas fa-bars" style="color:white;width:100px;font-size:30px"></i>
+    </button>
+
+
+    <h4 style="color: white;margin:0 auto; text-transform: uppercase;">C : <%= userids.userName %></h4>
+    
+    <li class="nav-item">
+      <a class="nav-link" href="">
+        <form action="/logout" method="POST">
+              <button id="logout">logout</button>
+           </form></a>
+    </li>
+
+    <!-- Navbar Search -->
+    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="button">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+
+
+    
+    <!-- Navbar -->
+    <ul class="navbar-nav ml-auto ml-md-0">
+      
+
+      <li class="nav-item dropdown no-arrow">
+        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <img src="/assets/user.svg"class="avatar"/>
+        </a>
+        
+      </li>
+    </ul>
+
+  </nav>
+
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="sidebar navbar-nav products" id="admin-aside">
+      <li class="nav-item nvitems active">
+        <a class="nav-link" href="/usercontrol/<%= userid %>">
+          <!-- <img src="/assets/pill.svg" alt="sale" id="svga"> -->
+          <span>PRODUCTS</span>
+        </a>
+      </li>
+
+      
+     
+        
+
+
+      <li class="nav-item nvitems multisales">
+        <a class="nav-link" href="/usercontrol/multisales/<%= userid %>">
+          <!-- <svg style="color: rgb(234, 255, 0);" xmlns="http://www.w3.org/2000/svg" width="27px" fill="currentColor" class="bi bi-bag-plus-fill" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zM8.5 8a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V12a.5.5 0 0 0 1 0v-1.5H10a.5.5 0 0 0 0-1H8.5V8z"/>
+          </svg>     -->
+          <span id="regStd" class="rcpt" style="color: white;">SELL</span>
+        </a>
+      </li>
+
+      <li class="nav-item nvitems seestock">
+        <a class="nav-link" href="/usercontrol/addstocks/<%= userid %>">
+          <!-- <img src="/assets/cartc.svg" alt="sale" id="svga">        -->
+          <span id="regStd" class="rcpt" style="color: white;">VIEW STOCKS</span>
+        </a>
+      </li>
+
+      <li class="nav-item nvitems user4">
+        <a class="nav-link" href="/usercontrol/daily-reports/<%= userid %>">
+            <span id="regStd" class="regstd" style="color: white;">DAILY REPORTS</span> 
+          </a> 
+        </li> 
+
+
+      <li class="nav-item nvitems make-sales">
+        <a class="nav-link" href="/usercontrol/makesales/<%= userid %>">
+            <span id="regStd" class="regstd" style="color: white;">WEEKLY REPORTS</span> 
+          </a> 
+        </li> 
+
+    </ul>
+
+    <div id="content-wrapper">
+
+      <div class="container-fluid">
+
+        <%- body %>
+
+      </div>
+      <!-- /.container-fluid -->
+
+      <!-- Sticky Footer -->
+      <footer class="sticky-footer" id="giviFoot">
+        <div class="container my-auto" id="st1">
+          <div class="copyright text-center my-auto" id="st2">
+            <h5>Powered by <span>GIVITEC LTD</span> | All Rights Reserved</h5>
+            <p>www.givitec.com</p>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+    <!-- /.content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="/this/vendor/jquery/jquery.min.js"></script>
+  <script src="/this/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="/this/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Page level plugin JavaScript-->
+  <script src="/this/vendor/chart.js/Chart.min.js"></script>
+  <script src="/this/vendor/datatables/jquery.dataTables.js"></script>
+  <script src="/this/vendor/datatables/dataTables.bootstrap4.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <!-- <script src="/this/js/sb-admin.min.js"></script> -->
+
+  <!-- Demo scripts for this page-->
+<script src="/this/js/demo/datatables-demo.js"></script>
+    <script src="/this/js/demo/chart-area-demo.js"></script>
+
+
+</body>
+
+</html>

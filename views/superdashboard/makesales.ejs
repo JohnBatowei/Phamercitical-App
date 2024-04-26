@@ -1,0 +1,142 @@
+<head>
+  <style>
+    .make-sales{
+      background-color: rgb(9, 58, 83);
+    }
+  </style>
+</head>
+<div class="container">
+  <% if(errorMessage.length > 0){ %>
+  <div id="errorMessage"><%= errorMessage %></div>
+  <% } %> <% if(successMessage.length > 0){ %>
+  <div id="successMessage"><%= successMessage %></div>
+  <% } %>
+
+  <div class="container-fluid">
+    <h1 class="make-sales">Make sales</h1>
+  </div>
+
+  <section class="container-fluid">
+    <!-- <form action="/db/api/mmakesales" method="POST" class="form-group">
+      <div class="main-container">
+        <div class="addstock">
+          <div class="invoice" id="form-box">
+            <label for="">invoice no</label>
+            <input
+              type="text"
+              name="invoice"
+              id="invoice"
+              required
+              oninput="myFunction()"
+            />
+          </div>
+          <div class="productname" id="form-box">
+            <label for="">product name</label>
+            <input
+              type="text"
+              name="productname"
+              id="productname"
+              required
+              oninput="myFunction()"
+            />
+          </div>
+          <div class="productquantity" id="form-box">
+            <label for="">product quantity</label>
+            <input
+              type="number"
+              name="productquantity"
+              id="productquantity"
+              required
+              oninput="myFunction()"
+            />
+          </div>
+          <div class="sellingprice" id="form-box">
+            <label for="">selling price</label>
+            <input
+              type="number"
+              name="sellingprice"
+              id="sellingprice"
+              required
+              oninput="myFunction()"
+            />
+          </div>
+          <div class="soldedate" id="form-box">
+            <label for="">date</label>
+            <input type="date" name="soldedate" id="soldedate" required />
+          </div>
+        </div>
+      </div>
+      <button>make sales</button>
+     
+    </form> -->
+
+
+    <!-- DataTables Example -->
+    <div class="card mb-3" id="stock">
+      <div class="card-header" id="admin-table-head">
+        <i class="fas fa-table"></i>
+        Daily Sales
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table
+            class="table table-bordered"
+            id="dataTable"
+            width="100%"
+            cellspacing="0"
+          >
+            <thead>
+              <tr>
+                <th>S/N</th>
+                <th>DRUG ID</th>
+                <th>PRODUCT NAME</th>
+                <th>QUANTITY SOLD</th>
+                <th>SOLD PRICE</th>
+                <th>DATE</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>S/N</th>
+                <th>DRUG ID</th>
+                <th>PRODUCT NAME</th>
+                <th>QUANTITY SOLD</th>
+                <th>SOLD PRICE</th>
+                <th>DATE</th>
+                <th>Actions</th>
+              </tr>
+            </tfoot>
+            <tbody>
+              <% if(productDrugs.length > 0){ %> <% productDrugs.forEach((item,index)=>{ %>
+              <tr>
+                <td><%= index %></td>
+                <td><%= item.drugid %></td>
+                <td><%= item.productname%></td>
+                <td><img src="/assets/pill.svg" alt="naira" id="naira"> <%= item.productquantity%></td>
+                <td><img src="/assets/naira.svg" alt="naira" id="naira"><%= item.sellingprice%></td>
+                <td><%= item.soldedate%></td>
+                 <td><a href=""> <img src="/assets/eye.svg" alt="view" id="svg"></a></td>
+                 <!-- <td><a href="/studentID/<%= item.id %>/edit ">edit</a></td> -->
+                <!-- <td> <a class="delete" data-doc="<%= item._id %>">delete</a></td> -->
+                <!-- <td>
+                    <form
+                      action="/studentID/<%= item.id %>?_method=DELETE"
+                      method="POST"
+                    >
+                      <button id="delete">delete</button>
+                    </form>
+                  </td> -->
+              </tr>
+
+              <% }) %> <% }else{ %>
+              <p>No Sales Made</p>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div> -->
+    </div>
+  </section>
+</div>

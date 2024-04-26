@@ -1,0 +1,407 @@
+<head>
+    <!-- <style>
+      .user3{
+       background-color: rgb(9, 58, 83);
+         }
+
+         @media print {
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    .container-fluid {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    #header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+  .dataRow{
+    display: flex;
+    place-content: space-between;
+  }
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container-fluid {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  #header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .dataRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 8px 0;
+  }
+
+  .totalLabel {
+    font-weight: bold;
+  }
+
+  .profitLoss {
+    font-weight: bold;
+    color: #28a745;
+  }
+
+  .negative {
+    color: #dc3545;
+  }
+
+  h4 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #007bff;
+  }
+
+  .dataRow p {
+    margin: 0;
+  }
+
+  .print-report {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .btn-print {
+    padding: 8px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .btn-print:hover {
+    background-color: #0056b3;
+  }
+
+  /* Styles for the User3 section */
+  .user3 {
+    background-color: rgb(9, 58, 83);
+    color: #fff;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .user3 h2 {
+    margin: 0;
+    font-size: 24px;
+    text-transform: uppercase;
+  }
+
+  .user3 p {
+    margin: 0;
+  }
+
+    </style> -->
+    
+    <style>
+             .user3{
+                  background-color: rgb(9, 58, 83);
+                    }
+            /* Common styles for screen and print */
+            body {
+              font-family: Arial, sans-serif;
+              line-height: 1.6;
+              color: #333;
+              margin: 0;
+              padding: 0;
+            }
+          
+            .container-fluid {
+              /* max-width: 800px; */
+              margin: 0 auto;
+              padding: 20px;
+            }
+          
+            #header {
+              /* text-align: center; */
+              margin-bottom: 20px;
+            }
+          
+            .dataRow {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin: 8px 0;
+            }
+          
+            .totalLabel {
+              font-weight: bold;
+            }
+          
+            .profitLoss {
+              font-weight: bold;
+              color: #28a745;
+            }
+          
+            .negative {
+              color: #dc3545;
+            }
+          
+            h4 {
+              text-align: center;
+              margin-bottom: 10px;
+              color: #007bff;
+            }
+          
+            .dataRow p {
+              margin: 0;
+            }
+          
+            .print-report {
+              text-align: center;
+              margin-top: 20px;
+            }
+          
+            .btn-print {
+              padding: 8px 20px;
+              background-color: #007bff;
+              color: #fff;
+              border: none;
+              border-radius: 4px;
+              cursor: pointer;
+            }
+          
+            .btn-print:hover {
+              background-color: #0056b3;
+            }
+          
+            /* Styles for @media print */
+            @media print {
+              .searchBarContainer,
+      .print-report {
+        display: none; /* Hide the search bar and print button when printing */
+      }
+          .rule{
+            border-bottom: 1px solid rgba(170, 170, 170, 0.884);
+          }
+              .container-fluid {
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
+              }
+          
+              #header {
+                text-align: center;
+                margin-bottom: 20px;
+                display: none; /* Hide the header when printing */
+              }
+          
+              .dataRow {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin: 8px 0;
+              }
+          
+              .totalLabel {
+                font-weight: bold;
+              }
+          
+              .profitLoss {
+                font-weight: bold;
+                color: #28a745;
+              }
+          
+              .negative {
+                color: #dc3545;
+              }
+          
+              h4 {
+                text-align: center;
+                margin-bottom: 10px;
+                color: #007bff;
+              }
+          
+              .dataRow p {
+                margin: 0;
+              }
+          
+              .print-report {
+                display: none; /* Hide the print button when printing */
+              }
+          #giviFoot{
+            display: none;
+          }
+
+          #admin-aside{
+            display: none;
+            }
+     
+              /* Add more custom styles for printing if needed */
+            }
+          </style>
+          
+
+</head>
+
+ <div class="container">
+    
+    <div class="container-fluid">
+        <div id="header">
+            <h1>Monthly Report</h1>
+          </div>
+    
+         <!-- Add the search bar container -->
+         <div class="searchBarContainer" style="text-align: right;">
+          <input type="text" id="searchInput" placeholder="Search by month..." oninput="filterMonths()">
+        </div>
+        
+
+
+
+
+      <div id="monthReportContainer">
+        <% expensesByMonth.forEach(monthData => {
+          const salesData = salesByMonth.find(data => data.monthYear === monthData.monthYear);
+          const totalExpense = monthData.totalExpense || 0;
+          const totalSales = salesData ? salesData.totalSales : 0;
+          const profitLoss = totalSales - totalExpense;
+      
+          // console.log(salesData);
+       
+      
+          const isValidMonthYear = /^20\d{2}-(0[1-9]|1[0-2])$/.test(monthData.monthYear);
+          const monthName = isValidMonthYear ? getMonthName(monthData.monthYear) : 'Unknown Month';
+        %>
+          <div class="monthContainer">
+            <div class="monthHeader">
+              <h3><%= monthName %></h3>
+            </div>
+            <div class="dataRow">
+              <p class="totalLabel">Total Expenses:</p>
+              <p><%= totalExpense.toLocaleString("en-NG", { style: "currency", currency: "NGN" }) %></p>
+            </div>
+            <div class="dataRow">
+              <p class="totalLabel">Total Sales:</p>
+              <%= totalSales.toLocaleString("en-NG", { style: "currency", currency: "NGN" }) %>
+            </div>
+            <div class="dataRow">
+              <p class="totalLabel">Profit/Loss:</p>
+              <p class="profitLoss <%= profitLoss >= 0 ? '' : 'negative' %>">
+                <%= profitLoss.toLocaleString("en-NG", { style: "currency", currency: "NGN" }) %>
+              </p>
+            </div>
+            <!-- Display product data -->
+            <hr>
+            <h4 style="text-align: center;">FOODS</h4>
+      
+
+
+
+            <% let totalQ = new Map();
+   let showTotal = 0;
+   if (salesData && salesData.products) { %>
+     <% salesData.products.forEach(product => { %>
+       <% let productName = String(product.name).toLowerCase();
+          let productQuantity = Array.isArray(product.quantity) ? product.quantity : [product.quantity]; // Ensure productQuantity is always an array
+       %>
+       <% let a = productQuantity.reduce((a, b) => a + b, 0);
+          showTotal += a;
+          if (totalQ.has(productName)) {
+            totalQ.set(productName, totalQ.get(productName) + a);
+          } else {
+            totalQ.set(productName, a);
+          }
+       %>
+     <% }); %>
+
+     <% // Iterate over the aggregated totalQ map to display the data without duplication %>
+     <% for (const [productName, quantity] of totalQ) { %>
+       <div class="dataRow">
+         <p><strong><%= productName %> : <%= quantity %></strong></p>
+       </div>
+     <% } %>
+          
+   <% } else { %>
+     <p>No product data available for this month.</p>
+   <% } %>
+   <div class="dataRow rule">
+     <p class="totalLabel">Total Quantity Sold:</p>
+     <p><%= showTotal %></p>
+
+   </div>
+
+
+          </div>
+          <div class="print-report" ><button class="btn-print" onclick="printss(`<%= monthName %>`)">print report</button></div>
+
+        <% }); %>
+      </div>
+      
+
+      <script>
+  function generateMonthReport(monthName) {
+    // Find the month container that matches the selected month
+    const monthContainers = document.querySelectorAll('.monthContainer');
+    const selectedMonthContainer = [...monthContainers].find((container) => {
+      const header = container.querySelector('.monthHeader h3');
+      return header.textContent === monthName;
+    });
+
+    if (selectedMonthContainer) {
+      // Create a new div to hold the report content for the selected month
+      const reportContent = document.createElement('div');
+
+      // Clone the selected month container to avoid affecting the original report layout
+      const clonedMonthContainer = selectedMonthContainer.cloneNode(true);
+
+      // Append the cloned month container to the new report content div
+      reportContent.appendChild(clonedMonthContainer);
+
+      // Print the report content
+      // const printWindow = window.open('', '_blank');
+      // printWindow.document.body.innerHTML = reportContent.innerHTML;
+      // printWindow.print();
+      // printWindow.close();
+      print()
+    }
+  }
+
+  function printss(monthName) {
+    generateMonthReport(monthName);
+  }
+
+
+
+
+    // Function to filter the months based on user input
+    function filterMonths() {
+    const searchInput = document.getElementById("searchInput").value.toLowerCase();
+    const monthContainers = document.querySelectorAll(".monthContainer");
+
+    monthContainers.forEach((monthContainer) => {
+      const monthName = monthContainer.querySelector(".monthHeader h3").textContent.toLowerCase();
+      if (monthName.includes(searchInput)) {
+        monthContainer.style.display = "block"; // Show the month container if it matches the search
+      } else {
+        monthContainer.style.display = "none"; // Hide the month container if it doesn't match the search
+      }
+    });
+  }
+</script>
+      
+    </div>
+</div>

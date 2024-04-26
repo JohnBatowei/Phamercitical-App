@@ -1,0 +1,54 @@
+<div class="cart-section">
+  <form id="cartForm">
+    <table
+      id="cartTable"
+      class="table table-striped table-hover table-sm table-responsive-sm"
+    ></table>
+    <div class="action-cart">
+      <button id="sbm-btn">Submit sales</button>
+      <p onclick="clearCart()">clear cart</p>
+    </div>
+  </form>
+</div>
+<!-- <script>
+  let productnamess = document.getElementById("productname").value;
+  let productquantityss = document.getElementById("productquantity").value;
+  let sellingpricess = document.getElementById("sellingprice").value;
+  let cashiernamess = document.getElementById("cashiername").value;
+
+  const drugidss = document.getElementById("drugid").value;
+   const btns = document.getElementById("sbm-btn");
+console.log(document.getElementById(cartForm).children)
+btns.addEventListener("click", async (e) => {
+  e.preventDefault()
+ const endpoint = `/usercontrol/multisales/</%= userid %>`;
+
+ console.log(drugidss)
+
+//   const res = await fetch(endpoint, {
+//     method: 'POST',
+//   body: JSON.stringify({
+//     // form data here
+//     "drugid":""
+//   })
+// })
+// .then(response => response.json())
+// .then(data => {
+//   // do something with the response data
+// })
+
+  // receiving the server json inside res parameters
+  // try {
+  //   const data = await res.json();
+  //   productname.value = data.name;
+  //   productquantity.value = data.left;
+  //   let price = data.left * data.price;
+  //   sellingprice.value = price;
+  //   document.getElementById("test").value = data.price;
+  //   console.log(data.price);
+  // } catch (error) {
+  //   window.location.href = data.redirect;
+  // }
+
+});
+</script> -->

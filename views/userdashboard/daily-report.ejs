@@ -1,0 +1,150 @@
+<head>
+
+    
+    <style>
+             .user4{
+                  background-color: rgb(9, 58, 83);
+                    }
+            /* Common styles for screen and print */
+            body, h1, h2, p, ul, li {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Apply box-sizing border-box for easier element sizing */
+        *, *:before, *:after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        #header {
+            background-color: rgb(9, 58, 83);
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #header h1 {
+            margin: 0;
+            padding: 20px 0;
+        }
+
+        .searchBarContainer {
+            text-align: right;
+            margin-top: 16px;
+            margin-bottom: 20px;
+        }
+
+        .searchBarContainer input{
+            padding: 3px 12px;
+            outline: none;
+            border: 1px solid lightblue;
+            
+        }
+        #dailyReportContainer .daily-report {
+            background-color: #f9f9f9;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        #dailyReportContainer h2 {
+            margin-bottom: 10px;
+        }
+
+        #dailyReportContainer ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        #dailyReportContainer li {
+            margin-bottom: 5px;
+        }
+    </style>
+          
+
+</head>
+
+ <div class="container">
+    
+    <div class="container-fluid">
+        <div id="header">
+            <h1>Daily Report</h1>
+          </div>
+    
+         <!-- Add the search bar container -->
+         <div class="searchBarContainer">
+            <input type="text" id="searchInput" placeholder="Search by Day..." oninput="filterByDay()">
+        </div>
+
+        
+        <div id="dailyReportContainer">
+            <% salesByDay.forEach(dayData => {
+                const [year, month, day] = dayData.day.split('-').map(Number);
+                const dateObj = new Date(year, month - 1, day);
+                const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                const dayName = dayNames[dateObj.getDay()];
+                const formattedDate = `${dayName}, ${dateObj.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}`;
+            %>
+            <div class="daily-report">
+                <h2><%= formattedDate %></h2>
+                <p>Total Sales: ₦<%= dayData.totalSales.toLocaleString() %></p>
+                <p>Total Quantity Sold: <%= dayData.totalQuantity %></p>
+                <ul>
+                    <% dayData.products.forEach(product => { %>
+                    <li><%= product.name %> - <%= product.quantity %></li>
+                    <% }) %>
+                </ul>
+            </div>
+            <% }) %>       
+
+            <!-- </% salesByDay.forEach(dayData => { %>
+                <div class="daily-report">
+                    </% const formattedDate = new Date(dayData.day); %>
+                    <h2></%= formattedDate.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></h2>
+                    <p>Total Sales: ₦</%= dayData.totalSales.toLocaleString() %></p>
+                    <p>Total Quantity Sold: </%= dayData.totalQuantity %></p>
+                    <ul>
+                        </% dayData.products.forEach(product => { %>
+                        <li></%= product.name %> - </%= product.quantity %></li>
+                        </% }) %>
+                    </ul>
+                </div>
+                </% }) %> -->
+            
+            
+        </div>
+    
+      
+
+
+        <script>
+            function filterByDay() {
+                const searchInput = document.getElementById('searchInput');
+                const filter = searchInput.value.toLowerCase();
+                const dailyReports = document.querySelectorAll('.daily-report');
+    
+                dailyReports.forEach(report => {
+                    const dayName = report.querySelector('h2').textContent.toLowerCase();
+                    if (dayName.includes(filter)) {
+                        report.style.display = 'block';
+                    } else {
+                        report.style.display = 'none';
+                    }
+                });
+            }
+        </script>
+      
+    </div>
+</div>

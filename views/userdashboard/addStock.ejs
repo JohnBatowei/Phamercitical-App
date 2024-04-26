@@ -1,0 +1,126 @@
+<head>
+  <style>
+    .seestock{
+      background-color: rgb(9, 58, 83);
+    }
+  </style>
+</head>
+<div class="container">
+  <% if(errorMessage.length > 0){ %>
+  <div id="errorMessage"><%= errorMessage %></div>
+  <% } %> <% if(successMessage.length > 0){ %>
+  <div id="successMessage"><%= successMessage %></div>
+  <% } %>
+  <%- include('../partials/cart') %> 
+  <section class="container-fluid">
+ 
+
+    <!-- DataTables Example -->
+    <div class="card mb-3" id="stock">
+      <div class="card-header" id="admin-table-head">
+        <i class="fas fa-table"></i>
+        Stock Records
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table
+            class="table table-bordered"
+            id="dataTable"
+            width="100%"
+            cellspacing="0"
+          >
+            <thead>
+              <tr>
+                <th>S/N</th>
+                <th>FOOD ID</th>
+                <th>FOOD NAME</th>
+                <th>FOOD QUANTITY</th>
+                <th>RETAIL PRICE</th>
+                <th>TOTAL QUANTITY PRICE</th>
+                <th>LEFT OVERS</th>
+                <th>DATE CREATED</th>
+                <th>DATE UPDATED</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>S/N</th>
+                <th>FOOD ID</th>
+                <th>FOOD NAME</th>
+                <th>FOOD QUANTITY</th>
+                <th>RETAIL PRICE</th>
+                <th>TOTAL QUANTITY PRICE</th>
+                <th>LEFT OVERS</th>
+                <th>DATE CREATED</th>
+                <th>DATE UPDATED</th>
+              </tr>
+            </tfoot>
+            <tbody>
+              <% if(stock.length > 0){ %> <% stock.forEach((item,index)=>{ %>
+              <tr>
+                <td><%= index+1 %></td>
+                <td><%= item.drugid%></td>
+                <td><%= item.productname%></td>
+           
+                <td>
+                 <%=
+                  item.productquantity%>
+                </td>
+              
+               
+                <td>
+                  <%=
+                  item.retailprice.toLocaleString()%>
+                </td>
+                <td>
+                  <%=
+                  item.balance.toLocaleString()%>
+                </td>
+
+                <td>
+                  <%=
+                  item.quantityleft%>
+                </td>
+                <td>
+                  <%=
+                  item.createdAt.toDateString()%>
+                </td>
+                <td>
+                  <%=
+                  item.updatedAt.toDateString()%>
+                </td>
+
+              </tr>
+
+              <% }) %> <% }else{ %>
+              <p>No Stock Record Found</p>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div> -->
+    </div>
+  </section>
+</div>
+
+<script>
+   let myFunction = function () {
+    let retailprice = document.getElementById("retailprice").value;
+    let productquantity = document.getElementById("productquantity").value;
+  
+
+    //main calculation
+    let balanceAmt = retailprice * productquantity;
+      (document.getElementById("balance").value = balanceAmt);
+    
+
+    const uid = function(){
+  return Date.now().toString(36) + Math.random().toString(36).substr(2);
+}
+ document.getElementById('uniqueID').value = uid()
+console.log(uid());
+  };
+
+</script>
+<script src="/javascripts/cart.js"></script>

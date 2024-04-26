@@ -1,0 +1,36 @@
+#home-login {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  align-items: center;
+}
+#home-login form {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  background: black;
+  width: 400px;
+  padding: 16px 20px;
+  border-radius: 5px;
+}
+#home-login form h3 {
+  color: silver;
+}
+#home-login form input {
+  padding: 8px 6px;
+}
+#home-login form .btn {
+  background: white;
+  font-weight: 500;
+}
+#home-login form .btn:hover {
+  background: blue;
+  color: white;
+}
+
+marquee {
+  position: absolute;
+  width: 700px;
+  transform: translate(45%, 0);
+  font-weight: 500;
+}/*# sourceMappingURL=home.css.map */

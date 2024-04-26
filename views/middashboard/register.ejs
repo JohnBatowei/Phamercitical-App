@@ -1,0 +1,93 @@
+<head>
+  <style>
+    .user1{
+      background-color: rgb(9, 58, 83);
+    }
+    #mmm{
+      color: rgb(255, 255, 255);
+      padding: 4px 12px 8px 12px;
+      background: #000000dc;
+    }
+  </style>
+</head>
+<div class="container">
+  <% if(errorMessage.length > 0){ %>
+  <div id="errorMessage"><%= errorMessage %></div>
+  <% } %> <% if(successMessage.length > 0){ %>
+  <div id="successMessage"><%= successMessage %></div>
+  <% } %>
+
+  <div class="container-fluid">
+    <h4 class="make-sales" id="mmm"> cashier account </h4>
+  </div>
+
+  <section class="container-fluid">
+    <h3>Create New Cashier Account</h3>
+    <form action="/api/users/register/<%= userid %>" method="POST" class="form-group">
+      <div class="main-container">
+        <div class="addstock">
+          <div class="userName" id="form-box">
+            <label for="">full name</label>
+            <input type="text" name="userName" id="userName" required />
+          </div>
+          <div class="email" id="form-box">
+            <label for="">enter email</label>
+            <input type="email" name="email" id="email" required />
+          </div>
+          <div class="password" id="form-box">
+            <label for="">enter password</label>
+            <input type="password" name="password" id="password" required />
+          </div>
+        </div>
+      </div>
+      <button>create account</button>
+    </form>
+
+    <!-- DataTables Example -->
+    <div class="card mb-3" id="stock">
+      <div class="card-header" id="admin-table-head">
+        <i class="fas fa-table"></i>
+        Existing users
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table
+            class="table table-bordered"
+            id="dataTable"
+            width="100%"
+            cellspacing="0"
+          >
+            <thead>
+              <tr>
+                <th>S/N</th>
+                <th>FULL NAME</th>
+                <th>EMAIL</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>S/N</th>
+                <th>FULL NAME</th>
+                <th>EMAIL</th>
+              </tr>
+            </tfoot>
+            <tbody>
+              <% if(users.length > 0){ %> <% users.forEach((item,index)=>{ %>
+              <tr>
+                <td><%= index %></td>
+                <td><%= item.userName%></td>
+                <td><%= item.email%></td>
+             
+              </tr>
+
+              <% }) %> <% }else{ %>
+              <p>No user created</p>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div> -->
+    </div>
+  </section>
+</div>

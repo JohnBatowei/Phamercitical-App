@@ -1,0 +1,31 @@
+<% if(errorMessage.length > 0){ %> 
+    <div id="errorMessage"> <%= errorMessage %> </div>
+<% } %> 
+<% if(successMessage.length > 0){ %> 
+    <div id="successMessage"> <%= successMessage %> </div>
+<% } %> 
+<marquee behavior="smooth" direction="">This App is developed by GIVITEC LTD. TEL : 08079436049, WEBSITE : www.givitec.com </marquee>
+<section class="form-container homeform" id="home-login">
+  <form action="/api/users" method="POST" target="_blank">
+    <h3>welcome back!</h3>
+    <input
+      type="email"
+      name="email"
+      required
+      maxlength="50"
+      placeholder="enter your email"
+      class="box"
+    />
+    <input
+      type="password"
+      name="password"
+      required
+      maxlength="20"
+      placeholder="enter your password"
+      class="box"
+    />
+    <!-- <p>don't have an account? <a href="/register">register new</a></p> -->
+    <input type="submit" value="login now" name="submit" class="btn" />
+  </form>
+</section>
+

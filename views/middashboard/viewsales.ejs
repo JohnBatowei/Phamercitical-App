@@ -1,0 +1,39 @@
+
+<section id="viewReceiptSection">
+    <div id="viewReceipt">
+        <h3>drug receipt</h3>
+        <table>
+            <tr>
+                <th>Product : </th>
+                <th><%= sales.productname %></th>
+            </tr>
+            <tr>
+                <th>Quantity : </th>
+                <th><%= sales.productquantity %> </th>
+            </tr>
+            <tr>
+                <th>Amount : </th>
+                <th id="naira"><img src="/assets/naira.svg" alt=""> <%= sales.sellingprice %></th>
+            </tr>
+            <tr>
+                <th>Date : </th>
+                <th><%= sales.soldedate %></th>
+            </tr>
+
+        </table>
+                   
+            </div>
+        <div id="viewPrev">
+            <a href="/midcontrol/makesales">Back</a>
+            <button>print</button>
+        </div>
+</section>
+
+<script>
+    let btn = document.querySelector('button')
+
+    
+    btn.onclick = function(e){
+        window.print()
+    }
+</script>

@@ -1,0 +1,170 @@
+<head>
+  <style>
+    .seestock{
+      background-color: rgb(9, 58, 83);
+    }
+  </style>
+</head>
+<div class="container">
+  <% if(errorMessage.length > 0){ %>
+  <div id="errorMessage"><%= errorMessage %></div>
+  <% } %> <% if(successMessage.length > 0){ %>
+  <div id="successMessage"><%= successMessage %></div>
+  <% } %>
+
+  <section class="container-fluid">
+    <form action="/db/api/mstock/<%= userid %>" method="POST" class="form-group">
+      <div class="main-container">
+        <div class="addstock">
+          
+          <div class="productname" id="form-box">
+            <label for="">food name</label>
+            <input
+              type="text"
+              name="productname"
+              id="productname"
+              required
+              oninput="myFunction()"
+            />
+          </div>
+          <div class="productquantity" id="form-box">
+            <label for="">food quantity</label>
+            <input
+              type="number"
+              name="productquantity"
+              id="productquantity"
+              required
+              oninput="myFunction()"
+            />
+          </div>
+        
+        </div>
+
+        <div class="sellstock">
+          
+          <div class="retailprice" id="form-box">
+            <label for="">retail price</label>
+            <input
+              type="number"
+              name="retailprice"
+              id="retailprice"
+              required
+              oninput="myFunction()"
+            />
+          </div>
+          <div class="balance" id="form-box">
+            <label for="">total AMOUNT</label>
+            <input
+              type="number"
+              name="balance"
+              id="balance"
+              required
+              oninput="myFunction()"
+            />
+          </div>
+        
+          <div class="profit" id="form-box">
+            <label for="">Food id</label>
+            <input
+              type="text"
+              name="drugid"
+              id="uniqueID"
+              required
+            />
+          </div>
+        </div>
+      </div>
+      <button>add to stock</button>
+    </form>
+
+    <!-- DataTables Example -->
+    <div class="card mb-3" id="stock">
+      <div class="card-header" id="admin-table-head">
+        <i class="fas fa-table"></i>
+        Stock Records
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table
+            class="table table-bordered"
+            id="dataTable"
+            width="100%"
+            cellspacing="0"
+          >
+            <thead>
+              <tr>
+                <th>S/N</th>
+                <th>FOOD ID</th>
+                <th>FOOD NAME</th>
+                <th>FOOD QUANTITY</th>
+                <th>RETAIL PRICE</th>
+                <th>TOTAL AMOUNT</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>S/N</th>
+                <th>FOOD ID</th>
+                <th>FOOD NAME</th>
+                <th>FOOD QUANTITY</th>
+                <th>RETAIL PRICE</th>
+                <th>TOTAL AMOUNT</th>
+                <th>Actions</th>
+              </tr>
+            </tfoot>
+            <tbody>
+              <% if(stock.length > 0){ %> <% stock.forEach((item,index)=>{ %>
+              <tr>
+                <td><%= index+1 %></td>
+                <td><%= item.drugid%></td>
+                <td><%= item.productname%></td>
+                <td>
+                  <%=
+                  item.productquantity%>
+                </td>
+        
+                <td>
+                  <img src="/assets/naira.svg" alt="naira" id="naira" /> <%=
+                  item.retailprice.toLocaleString()%>
+                </td>
+                <td>
+                  <img src="/assets/naira.svg" alt="naira" id="naira" /> <%=
+                  item.balance.toLocaleString()%>
+                </td>
+                <td><a href="/midcontrol/<%= userid %>/<%= item._id %>/edit"> <img src="/assets/edit.svg" alt="view" id="svg"></a></td>
+              
+              </tr>
+
+              <% }) %> <% }else{ %>
+              <p>No Stock Record Found</p>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div> -->
+    </div>
+  </section>
+</div>
+
+<script>
+  let myFunction = function () {
+    let retailprice = document.getElementById("retailprice").value;
+    let productquantity = document.getElementById("productquantity").value;
+  
+
+    //main calculation
+    let balanceAmt = retailprice * productquantity;
+      (document.getElementById("balance").value = balanceAmt);
+    
+
+    const uid = function(){
+  return Date.now().toString(36) + Math.random().toString(36).substr(2);
+}
+ document.getElementById('uniqueID').value = uid()
+console.log(uid());
+  };
+
+
+</script>
